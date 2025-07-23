@@ -2,13 +2,19 @@ import { useState } from "react";
 export default function Login() {
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [enteredPassword, setEnteredPassword] = useState("");
+  
   const [enteredValue, setEnteredValue] = useState({
     email: "",
     password: "",
   });
 
-  const emailIsInvalid = enteredValue.email !== '' && !enteredValue.email.includes('@');
+   const [didEdit, setDidEdit ] =useState({
+    email : false,
+    password : false
+  });
 
+  const emailIsInvalid = didEdit.email && !enteredValue.email.includes('@');
+ 
   function handleSubmit(event) {
     event.preventDefault(); // To prevent the default submission action
     console.log(enteredValue);
@@ -20,6 +26,17 @@ export default function Login() {
       ...prevValues,
       [identifier]: event,
     }));
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier] : false
+    }))
+  }
+
+  function handleInputBlur(identifier){
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier] : true
+    }))
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -32,6 +49,7 @@ export default function Login() {
             id='email'
             type='email'
             name='email'
+            onBlur={()=>handleInputBlur('email')}
             onChange={(event) => {
               handleInputChange("email", event.target.value);
             }}
