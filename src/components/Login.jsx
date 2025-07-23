@@ -1,16 +1,16 @@
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 export default function Login() {
   const email = useRef();
   const password = useRef();
-  const [emailIsInvalid,setEamilIsInvalid ] = useState(false);
+  const [emailIsInvalid, setEamilIsInvalid] = useState(false);
   function handleSubmit(event) {
     event.preventDefault(); // To prevent the default submission action
     const enteredEmail = email.current.value;
     const enteredPassword = password.current.value;
 
-    const emailIsValid =  enteredEmail.includes('@');
-    if(!emailIsValid){
-      setEamilIsInvalid(true)
+    const emailIsValid = enteredEmail.includes("@");
+    if (!emailIsValid) {
+      setEamilIsInvalid(true);
       return; //to make sure there is no further exceution
     }
   }
@@ -21,31 +21,21 @@ export default function Login() {
       <div className='control-row'>
         <div className='control no-margin'>
           <label htmlFor='email'>Email</label>
-          <input
-            id='email'
-            type='email'
-            name='email'
-            ref={email}
-          />
+          <input id='email' type='email' name='email' ref={email} />
         </div>
-        <div className="control-error">{emailIsInvalid && <p>please enter the valid email address</p>}</div>
+        <div className='control-error'>
+          {emailIsInvalid && <p>please enter the valid email address</p>}
+        </div>
 
         <div className='control no-margin'>
           <label htmlFor='password'>Password</label>
-          <input
-            id='password'
-            type='password'
-            name='password'
-            ref={password}
-          />
+          <input id='password' type='password' name='password' ref={password} />
         </div>
       </div>
 
       <p className='form-actions'>
         <button className='button button-flat'>Reset</button>
-        <button className='button'>
-          Login
-        </button>
+        <button className='button'>Login</button>
       </p>
     </form>
   );
